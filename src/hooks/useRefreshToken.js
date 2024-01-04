@@ -1,6 +1,6 @@
 import { axiosDefault } from "../api/axios";
 import { useDispatch } from "react-redux";
-import { updateToken } from "../redux/actions/authentication-action";
+import { updateUserToken } from "../redux/actions/authentication-action";
 
 const useRefreshToken = () => {
 
@@ -8,17 +8,30 @@ const useRefreshToken = () => {
 
     const refresh = async () => {
         try{
-            const response = await axiosDefault.get('/auth/user/refresh-token', {
+            const userResponse = await axiosDefault.get('/auth/user/refresh-token', {
+                withCredentials: true
+            });
+            const customerResponse = await axiosDefault.get('/auth/customer/refresh-token', {
                 withCredentials: true
             });
 
-            const userDetail = {
-                token: response.data.accessToken,
-                user: response.data.user
-            }
+            Promise.resolve({userResponse, customerResponse});
 
-            dispatch(updateToken(userDetail));
-            return response.data.accessToken;
+            console.log('finally', {userResponse, customerResponse} );
+            if(userResponse?.data){
+                const userDetail = {
+                    token: userResponse.data.accessToken,
+                    user: userResponse.data.user,
+                    role: userResponse.data.user.role
+                }
+    
+                console.log('refresh', userDetail);
+                dispatch(updateUserToken(userDetail));
+                return userResponse.data.accessToken;
+            }else{
+
+            }
+            
         }catch(err){
             console.log(err);
             throw new Error(err);

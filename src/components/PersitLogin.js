@@ -18,10 +18,17 @@ const PersistLogin = () => {
         let isMounted = true;
         const verifyRefreshToken = async () => {
             try{
-                await refresh();
+                const token = await refresh();
+                // if(!token){
+                    // navigate('/user/login', {state: {from: location}, replace: true})
+                // }
             }catch(err){
                 console.log(err);
-                navigate('/', {state: {from: location}, replace: true})
+                if(location.pathname !== '/user/login'){
+                    navigate('/user/login', {state: {from: location}, replace: true})
+                }
+                console.log('from', location);
+                // navigate('/user/login', {state: {from: location}, replace: true})
             }finally{
                 isMounted && setIsLoading(false)
             }

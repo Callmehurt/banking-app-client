@@ -5,9 +5,16 @@ export const authenticateUser = (userDetail) => {
     }
 }
 
-export const updateToken = (userDetail) => {
+export const updateUserToken = (userDetail) => {
     return {
-        type: 'UPDATE_TOKEN',
+        type: 'UPDATE_USER_TOKEN',
         payload: userDetail
+    }
+}
+
+export const logoutUser = () => {
+    return {
+        type: 'LOGOUT_USER',
+        payload: ''
     }
 }

@@ -45,8 +45,10 @@ const Login = () => {
 
             const userDetail = {
                 token: res?.data.accessToken,
+                role: res?.data.user.role,
                 user: res?.data.user
             }
+
             dispatch(authenticateUser(userDetail));
             from = '/system/dashboard';
             navigate(from, {replace: true});
