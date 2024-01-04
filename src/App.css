@@ -1,38 +1,258 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
+
+
+
+.receipt-print-component,
+.order-print
+{
+  display: none;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body > .receipt-print-component{
+  display: block;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+
+body > .order-print{
+  display: block;
+}
+
+/*.receipt-table, td, th {*/
+/*    font-family: Roboto, Helvetica, Arial, sans-serif;*/
+/*    !*font-size: 10px;*!*/
+/*}*/
+
+
+
+@media print {
+  .receipt-print-component{
+    display: block;
+  }
+
+  .order-print{
+    display: block;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+
+
+
+.container-fluid{
+  max-width: 1500px !important;
+}
+
+.toggleInput {
+  visibility: hidden;
+  position: absolute;
+  top: -9999px;
+  height: 0;
+  width: 0;
+}
+.toggleInput + label {
+  margin-left: 1rem;
   display: flex;
-  flex-direction: column;
+  height: 24.8px;
+  width: 54px;
+  border-radius: 2rem;
+  background: linear-gradient(to right, #0a0 50%, #a00 50%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.25) inset, 0 2px 5px -1px rgba(0, 0, 0, 0.2) inset;
+  transition: all 250ms ease-in-out;
+}
+.toggleInput + label > span {
+  display: block;
+  position: relative;
+  height: 28.8px;
+  width: 28.8px;
+  border-radius: 50%;
+  top: -2px;
+  left: -2px;
+  background: hsl(175, 5%, 95%);
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.3), 0 2px 1px 1px rgba(0, 0, 0, 0.2);
+  transition: all 250ms ease-in-out;
+}
+.toggleInput:checked + label {
+  background-position: 0 0;
+  transition: all 250ms ease-in-out;
+}
+.toggleInput:checked + label > span {
+  left: 27.2px;
+  transition: all 250ms ease-in-out;
+}
+
+
+/*Loading animation*/
+
+.loader {
+  background-color: transparent;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  /*top: 0; left: 0;*/
+  margin-top: 10%;
+  display: flex;
   align-items: center;
+  align-content: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.loader2 {
+  background-color: transparent;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  /*top: 0; left: 0;*/
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
 }
 
-@keyframes App-logo-spin {
-  from {
+.loader3 {
+  background-color: transparent;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+  position: relative;
+  top: 20%;
+  /*top: 0; left: 0;*/
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.loader__element {
+  border-radius: 100%;
+  border: 5px solid #555;
+  margin: calc(5px*2);
+}
+
+.loader__element:nth-child(1) {
+  animation: preloader .6s ease-in-out alternate infinite;
+}
+.loader__element:nth-child(2) {
+  animation: preloader .6s ease-in-out alternate .2s infinite;
+}
+
+.loader__element:nth-child(3) {
+  animation: preloader .6s ease-in-out alternate .4s infinite;
+}
+
+@keyframes preloader {
+  100% { transform: scale(2); }
+}
+
+
+.pageloader {
+  background-color: #f7f7f7;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999999;
+  -webkit-transition: .6s;
+  -o-transition: .6s;
+  transition: .6s;
+  margin: 0 auto;
+}
+
+/* line 623, C:/Users/HP/Desktop/264.Business_HTML/HTML/assets/scss/_common.scss */
+.pageloader .preloader-circle {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  border-style: solid;
+  border-width: 1px;
+  border-top-color: #14435c;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  z-index: 10;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 1px 5px 0 rgba(35, 181, 185, 0.15);
+  box-shadow: 0 1px 5px 0 rgba(35, 181, 185, 0.15);
+  background-color: #fff;
+  -webkit-animation: zoom 2000ms infinite ease;
+  animation: zoom 2000ms infinite ease;
+  -webkit-transition: .6s;
+  -o-transition: .6s;
+  transition: .6s;
+}
+
+/* line 645, C:/Users/HP/Desktop/264.Business_HTML/HTML/assets/scss/_common.scss */
+.pageloader .preloader-circle2 {
+  border-top-color: #0078ff;
+}
+
+/* line 648, C:/Users/HP/Desktop/264.Business_HTML/HTML/assets/scss/_common.scss */
+.pageloader .preloader-img {
+  position: absolute;
+  top: 50%;
+  z-index: 200;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  text-align: center;
+  display: inline-block;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  padding-top: 6px;
+  -webkit-transition: .6s;
+  -o-transition: .6s;
+  transition: .6s;
+}
+
+/* line 666, C:/Users/HP/Desktop/264.Business_HTML/HTML/assets/scss/_common.scss */
+.pageloader .preloader-img img {
+  max-width: 55px;
+}
+
+/* line 669, C:/Users/HP/Desktop/264.Business_HTML/HTML/assets/scss/_common.scss */
+.pageloader .pere-text strong {
+  font-weight: 800;
+  color: #dca73a;
+  text-transform: uppercase;
+}
+
+@-webkit-keyframes zoom {
+  0% {
+    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
+    -webkit-transition: .6s;
+    -o-transition: .6s;
+    transition: .6s;
   }
-  to {
+  100% {
+    -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
+    -webkit-transition: .6s;
+    -o-transition: .6s;
+    transition: .6s;
   }
 }
+
+@keyframes zoom {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: .6s;
+    -o-transition: .6s;
+    transition: .6s;
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+    -webkit-transition: .6s;
+    -o-transition: .6s;
+    transition: .6s;
+  }
+}
+
