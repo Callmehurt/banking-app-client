@@ -15,9 +15,12 @@ export const authReducer = (state = initialState, {type, payload}) => {
             return {...state, isAuthenticated: true, customer: payload?.customer, token: payload.token, role: payload.role}
         case 'UPDATE_USER_TOKEN':
             return {...state, token: payload.token, user: payload.user, isAuthenticated: true, role: payload.role}
+        case 'UPDATE_CUSTOMER_TOKEN':
+            return {...state, token: payload.token, customer: payload.customer, isAuthenticated: true, role: payload.role}
         case 'LOGOUT_USER':
-            return {...state, token: '', user: {}, customer: {},isAuthenticated: false, role: ''}
+            return {...state, token: '', user: {}, customer: {}, isAuthenticated: false, role: ''}
         default:
             return state;
     }
 }
+// 

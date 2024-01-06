@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {axiosDefault} from "../api/axios";
-import {authenticateUser} from "../redux/actions/authentication-action";
+import {authenticateUser, authenticateCustomer} from "../redux/actions/authentication-action";
 import {useDispatch} from "react-redux";
 import {useNavigate, useLocation, Link} from "react-router-dom";
 import logo from '../images/logo.png'
@@ -18,7 +18,7 @@ const Login = () => {
     const dispatch = useDispatch();
 
     const [loginCredential, setLoginCredential] = useState({
-       username: '',
+       email: '',
        password: ''
     });
 
@@ -39,27 +39,40 @@ const Login = () => {
 
         try{
 
-            const res = await axiosDefault.post('/auth/user/signin', loginCredential);
+            let res = null;
+            if(loginType === 'User'){
+                res = await axiosDefault.post('/auth/user/signin', loginCredential);
+                const userDetail = {
+                    token: res?.data.accessToken,
+                    role: res?.data.user.role,
+                    user: res?.data.user
+                }
+                dispatch(authenticateUser(userDetail));
 
-            console.log(res);
+            }else{
+                res = await axiosDefault.post('/auth/customer/signin', loginCredential);
+                const customer = res?.data.customer.detail;
+                customer.accountNumber = res?.data.customer.account.accountNumber;
+                const customerDetail = {
+                    token: res?.data.accessToken,
+                    role: 'customer',
+                    customer: customer
+                }
 
-            const userDetail = {
-                token: res?.data.accessToken,
-                role: res?.data.user.role,
-                user: res?.data.user
+                dispatch(authenticateCustomer(customerDetail));
             }
-
-            dispatch(authenticateUser(userDetail));
             from = '/system/dashboard';
             navigate(from, {replace: true});
 
         }catch(err){
             console.log(err);
-            setErrMsg(err.response.data.message);
+            setErrMsg(err.response?.data.message);
         }finally{
             setIsLoading(false);
         }
     }
+
+    const [loginType, setLoginType] = useState('User');
 
 
     useEffect(() => {
@@ -78,14 +91,33 @@ const Login = () => {
                                 <img src={logo} alt="" height="130" style={{borderRadius: '50%'}} />
                             </Link>
                         </div>
-                        <h5 className="font-18 text-center">Sign in</h5>
+                        <h5 className="font-18 text-center">{loginType} Sign in</h5>
 
                         <form className="form-horizontal m-t-30" onSubmit={handleSubmit}>
 
                             <div className="form-group">
                                 <div className="col-12">
-                                    <label>Username</label>
-                                    <input className="form-control" type="text" name={'username'} placeholder="Username" value={loginCredential.username} onChange={(e) => formHandler(e)} autoComplete={'off'} />
+                                <ul className="nav nav-pills nav-justified" role="tablist">
+                                    <li className="nav-item waves-effect waves-light">
+                                        <a className={loginType === 'User' ? 'nav-link active' : 'nav-link'} onClick={() => setLoginType('User')}>
+                                            <span className="d-none d-md-block">User</span><span className="d-block d-md-none">
+                                        </span>
+                                        </a>
+                                    </li>
+                                    <li className="nav-item waves-effect waves-light">
+                                        <a className={loginType === 'Customer' ? 'nav-link active' : 'nav-link'} onClick={() => setLoginType('Customer')}>
+                                            <span className="d-none d-md-block">Customer</span><span className="d-block d-md-none">
+                                        </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <div className="col-12">
+                                    <label>Email</label>
+                                    <input className="form-control" type="text" name={'email'} placeholder="Email" value={loginCredential.email} onChange={(e) => formHandler(e)} autoComplete={'off'} />
                                 </div>
                             </div>
 

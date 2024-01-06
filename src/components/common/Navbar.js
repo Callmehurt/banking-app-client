@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faDashboard, faPhotoFilm, faBoxesStacked, faDolly, faPerson, faCalculator, faListOl} from "@fortawesome/free-solid-svg-icons";
+import {faDashboard, faUsers} from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = ({userDetail}) => {
 
@@ -8,10 +8,10 @@ const Navbar = ({userDetail}) => {
         <div id="navigation">
           <ul className="navigation-menu">
               <li className="has-submenu">
-                  <Link to={`/system/dashboard`}><FontAwesomeIcon icon={faDashboard} className={'mr-1'} /> Dashboard</Link>
+                  <Link to="/system/dashboard"><FontAwesomeIcon icon={faDashboard} className={'mr-1'} /> Dashboard</Link>
               </li>
               <li className="has-submenu">
-                  <Link to={`/admin/order-list`}><FontAwesomeIcon icon={faListOl} className={'mr-1'} /> Orders</Link>
+                  <Link to="/system/customers/list"><FontAwesomeIcon icon={faUsers} className={'mr-1'} /> Customers</Link>
               </li>
 
               {/* <li className="has-submenu">

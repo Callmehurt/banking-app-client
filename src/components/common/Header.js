@@ -48,7 +48,7 @@ const Header = () => {
                                           </a>
                                           <div className="dropdown-menu dropdown-menu-right profile-dropdown ">
                                               <a className="dropdown-item" href="#"><i
-                                                  className="mdi mdi-account-circle"></i>{userDetail.role !== 'customer' ? userDetail.user.username : ''}</a>
+                                                  className="mdi mdi-account-circle"></i>{userDetail.role !== 'customer' ? userDetail.user.username : userDetail.customer.name}</a>
                                               <div className="dropdown-divider"></div>
                                               <a className="dropdown-item text-danger" href="#" onClick={signOut}><i
                                                   className="mdi mdi-power text-danger"></i> Logout</a>

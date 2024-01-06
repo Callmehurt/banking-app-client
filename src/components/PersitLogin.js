@@ -18,7 +18,7 @@ const PersistLogin = () => {
         let isMounted = true;
         const verifyRefreshToken = async () => {
             try{
-                const token = await refresh();
+                await refresh();
                 // if(!token){
                     // navigate('/user/login', {state: {from: location}, replace: true})
                 // }
@@ -27,8 +27,6 @@ const PersistLogin = () => {
                 if(location.pathname !== '/user/login'){
                     navigate('/user/login', {state: {from: location}, replace: true})
                 }
-                console.log('from', location);
-                // navigate('/user/login', {state: {from: location}, replace: true})
             }finally{
                 isMounted && setIsLoading(false)
             }
@@ -36,7 +34,7 @@ const PersistLogin = () => {
         !authState?.token ? verifyRefreshToken() : setIsLoading(false);
 
         return () => isMounted = false;
-    })
+    }, [authState.token, refresh, location, navigate])
 
     return (
         <>
