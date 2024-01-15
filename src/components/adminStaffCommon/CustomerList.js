@@ -6,15 +6,24 @@ import { useDispatch, useSelector } from "react-redux";
 import Fuse from "fuse.js";
 import DataTable from "react-data-table-component";
 import TableLoader from '../loader/TableLoader'
+import CustomerEditModal from "./CustomerEditModal";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { fetchCustomers } from "../../redux/actions/customer-action";
+import {notifyError, notifySuccess} from '../toastNotification'
+import { Link } from "react-router-dom";
+
 
 const CustomerList = () => {
 
     const customers = useSelector((state) => state.customers.availableCustomers);
     const dispatch = useDispatch();
+    const axiosPrivate = useAxiosPrivate();
+
 
 
     const [search, setSearch] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+    const [selectedCustomer, setSelectedCustomer] = useState({});
 
     useEffect(() => {
         if(customers){
@@ -25,13 +34,35 @@ const CustomerList = () => {
     useEffect(() => {
         const options = {
             includeScore: true,
-            keys: ['name', 'email', 'phone', 'address']
+            keys: ['name', 'email', 'phone', 'address', 'accountNumber']
         }
 
         const fuse = new Fuse(customers, options);
         const result = fuse.search(search);
         search ? setSearchResults(result.map((data) => data.item)) : setSearchResults(customers);
     }, [search]);
+
+    const deleteCustomer = async (customer) => {
+        try {
+            const response = await axiosPrivate.delete(`/customer/${customer._id}/delete`)
+            if(response.status === 200){
+                notifySuccess(response.data.message)
+                const newData = [...customers]
+                newData.splice(newData.indexOf(customer), 1)
+                dispatch(fetchCustomers(newData))
+            }
+        }catch (e){
+            notifyError(e.response.data.message)
+            console.log(e)
+        }
+   }
+
+
+    const handleCustomerEdit = (customerId) => {
+        const customer = customers.find((data) => data._id === customerId);
+        setSelectedCustomer(customer);
+        setEditShow(true);
+    }
 
 
     const columns = [
@@ -55,11 +86,16 @@ const CustomerList = () => {
             selector: row => row.email
         },
         {
+            name: 'Account Number',
+            selector: row => row.accountNumber
+        },
+        {
             name: 'Action',
             cell: row => (
                 <>
-                <button className={'btn btn-sm btn-primary'}>Edit</button>
-                <button className={'btn btn-sm btn-danger ml-1'}>Delete</button>
+                <button className={'btn btn-sm btn-primary'} onClick={() => handleCustomerEdit(row._id)}>Edit</button>
+                <button className={'btn btn-sm btn-danger ml-1'} onClick={() => deleteCustomer(row)}>Delete</button>
+                <Link to={`/system/account/${row.accountNumber}/detail`} className="btn btn-sm btn-primary ml-1">View Account</Link>
                 </>
             )
         }
@@ -81,10 +117,12 @@ const CustomerList = () => {
     }
 
     const [show, setShow] = useState(false);
+    const [editShow, setEditShow] = useState(false);
 
     return (
         <>
         <CustomerAddModal show={show} setShow={setShow} />
+        <CustomerEditModal show={editShow} setShow={setEditShow} selectedCustomer={selectedCustomer}/>
         <DataTable
                 title={'Available Customer List'}
                 columns={columns}

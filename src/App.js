@@ -14,6 +14,11 @@ import RequireAuth from './components/RequireAuth';
 import AppLayout from './components/common/AppLayout';
 import Dashboard from './components/admin/Dashboard';
 import Customers from './components/adminStaffCommon/Customers';
+import Transaction from './components/adminStaffCommon/DepositTransaction';
+import ViewAccount from './components/adminStaffCommon/ViewAccount';
+import WithdrawTransaction from './components/adminStaffCommon/transactions/WithdrawTransaction';
+import TransferTransaction from './components/adminStaffCommon/transactions/TransferTransaction';
+import SingleAccountPage from './components/common/SingleAccountPage';
 
 
 function App() {
@@ -33,6 +38,11 @@ function App() {
 
               <Route exact path='/system/dashboard' element={<Dashboard/>} />
               <Route exact path='/system/customers/list' element={<Customers/>} />
+              <Route exact path='/system/account/detail' element={<ViewAccount/>} />
+              <Route exact path='/system/account/:accountNumber/detail' element={<SingleAccountPage/>} />
+              <Route exact path='/system/transaction/deposit' element={<Transaction/>} />
+              <Route exact path='/system/transaction/withdraw' element={<WithdrawTransaction/>} />
+              <Route exact path='/system/transaction/transfer' element={<TransferTransaction/>} />
 
             </Route>
           </Route>

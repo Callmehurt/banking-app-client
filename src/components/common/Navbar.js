@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faDashboard, faUsers} from "@fortawesome/free-solid-svg-icons";
+import {faDashboard, faUsers, faReceipt} from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = ({userDetail}) => {
 
@@ -13,19 +13,22 @@ const Navbar = ({userDetail}) => {
               <li className="has-submenu">
                   <Link to="/system/customers/list"><FontAwesomeIcon icon={faUsers} className={'mr-1'} /> Customers</Link>
               </li>
-
-              {/* <li className="has-submenu">
-                  <a href="#"><FontAwesomeIcon icon={faCalculator} className={'mr-1'} /> Accounting <i
+              <li className="has-submenu">
+                  <Link to="/system/account/detail"><FontAwesomeIcon icon={faUsers} className={'mr-1'} /> Account Detail</Link>
+              </li>
+              <li className="has-submenu">
+                  <a href="#"><FontAwesomeIcon icon={faReceipt} className={'mr-1'} /> Transactions <i
                       className="mdi mdi-chevron-down mdi-drop"></i></a>
                   <ul className="submenu megamenu">
                       <li>
                           <ul>
-                              <li><Link to={'/admin/expenses'}>Expenses</Link></li>
-                              <li><Link to={'/admin/cash-flows'}>Cash FLow History</Link></li>
+                              <li><Link to={'/system/transaction/deposit'}>Deposit Amount</Link></li>
+                              <li><Link to={'/system/transaction/withdraw'}>Withdraw Amount</Link></li>
+                              <li><Link to={'/system/transaction/transfer'}>Transfer Amount</Link></li>
                           </ul>
                       </li>
                   </ul>
-              </li> */}
+              </li>
           </ul>
       </div>
     )
