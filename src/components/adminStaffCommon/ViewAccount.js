@@ -29,7 +29,6 @@ const ViewAccount = () => {
             try{
 
                 const res = await axiosPrivate.get(`/account/detail/${values.accountNumber}`);
-                console.log(res);
                 if(res.status === 200){
                     const newData = {...detail}
                     const {customerId, ...other} = res.data.account 

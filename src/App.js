@@ -12,13 +12,15 @@ import NotFound from "./components/NotFound";
 import PersistLogin from './components/PersitLogin';
 import RequireAuth from './components/RequireAuth';
 import AppLayout from './components/common/AppLayout';
-import Dashboard from './components/admin/Dashboard';
+import Dashboard from './components/Dashboard';
 import Customers from './components/adminStaffCommon/Customers';
 import Transaction from './components/adminStaffCommon/DepositTransaction';
 import ViewAccount from './components/adminStaffCommon/ViewAccount';
 import WithdrawTransaction from './components/adminStaffCommon/transactions/WithdrawTransaction';
 import TransferTransaction from './components/adminStaffCommon/transactions/TransferTransaction';
 import SingleAccountPage from './components/common/SingleAccountPage';
+import MyAccountPage from './components/customer/MyAccountPage';
+import Payment from './components/customer/Payment';
 
 
 function App() {
@@ -44,6 +46,13 @@ function App() {
               <Route exact path='/system/transaction/withdraw' element={<WithdrawTransaction/>} />
               <Route exact path='/system/transaction/transfer' element={<TransferTransaction/>} />
 
+
+            </Route>
+          </Route>
+          <Route element={<RequireAuth allowedRole={['customer']} />}>
+            <Route element={<AppLayout/>}>
+              <Route exact path='/system/customer/account' element={<MyAccountPage/>} />
+              <Route exact path='/system/customer/payment' element={<Payment/>} />
             </Route>
           </Route>
         </Route>

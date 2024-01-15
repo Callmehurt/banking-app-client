@@ -25,3 +25,18 @@ export const transferValidationSchema = Yup.object({
     type: Yup.string(),
     amount: Yup.number().required('Amount is required'),
   });
+
+export const customerAmountTransferValidationSchema = Yup.object({
+    receiverAccountNumber: Yup.string().min(5).max(10).required("Please enter receiver account number"),
+    type: Yup.string(),
+    amount: Yup.number().required('Amount is required'),
+  });
+
+export const transactionFilterValidationSchema = Yup.object({
+    startDate: Yup.date().default(() => new Date()),
+    endDate: Yup
+          .date()
+          .when(
+              "startDate",
+              (startDate, schema) => startDate && schema.min(startDate))
+  });

@@ -13,14 +13,6 @@ body > .receipt-print-component{
 }
 
 
-body > .order-print{
-  display: block;
-}
-
-/*.receipt-table, td, th {*/
-/*    font-family: Roboto, Helvetica, Arial, sans-serif;*/
-/*    !*font-size: 10px;*!*/
-/*}*/
 
 
 
@@ -29,9 +21,6 @@ body > .order-print{
     display: block;
   }
 
-  .order-print{
-    display: block;
-  }
 }
 
 
