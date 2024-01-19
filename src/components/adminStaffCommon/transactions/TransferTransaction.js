@@ -62,6 +62,9 @@ const TransferTransaction = () => {
           <div className="row justify-content-center">
               <div className="col-lg-6">
                    <div className="card m-b-30">
+                        <div className="card-header" style={{ background: '#09669F' }}>
+                            <h6 className="text-white">Transfer Form</h6>
+                        </div>
                         <div className="card-body">
                             
                         <form>

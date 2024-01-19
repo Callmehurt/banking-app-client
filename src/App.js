@@ -28,7 +28,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Layout/>}>
 
-      ``<Route path={'/'} element={<Homepage/>}/>
+      <Route path={'/'} element={<Homepage/>}/>
         {/* Protected Routes */}
         <Route element={<PersistLogin/>}>
 

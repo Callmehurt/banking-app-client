@@ -2,22 +2,8 @@ import {Outlet} from 'react-router-dom'
 import Header from './Header';
 import {ToastContainer} from "react-toastify";
 
-
 const Layout = () => {
     return (
-        // <div id={'wrapper'}>
-        //     <ToastContainer/>
-        //     <TopHeader/>
-        //     <SideMenuBar/>
-        //     <div className="content-page">
-        //         <div className="content">
-        //             <div className="container-fluid">
-        //                 <Outlet/>
-        //             </div>
-        //         </div>
-        //     </div>
-        // </div>
-
         <>
         <ToastContainer/>
             <Header/>
@@ -26,6 +12,9 @@ const Layout = () => {
                     <Outlet/>
                 </div>
             </div>
+            <footer class="footer">
+                © {new Date().getFullYear()} ABC Banking Group <span class="d-none d-sm-inline-block"> - Developed By Sandip Shrestha</span>.
+            </footer>
         </>
     )
 }

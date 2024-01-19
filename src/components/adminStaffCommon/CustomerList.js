@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowLeft, faArrowRight, faPlusCircle} from "@fortawesome/free-solid-svg-icons";
+import {faArrowLeft, faArrowRight, faPlusCircle, faTrash, faPenAlt, faInfo} from "@fortawesome/free-solid-svg-icons";
 import CustomerAddModal from "./CustomerAddModal";
 import { useDispatch, useSelector } from "react-redux";
 import Fuse from "fuse.js";
@@ -93,9 +93,9 @@ const CustomerList = () => {
             name: 'Action',
             cell: row => (
                 <>
-                <button className={'btn btn-sm btn-primary'} onClick={() => handleCustomerEdit(row._id)}>Edit</button>
-                <button className={'btn btn-sm btn-danger ml-1'} onClick={() => deleteCustomer(row)}>Delete</button>
-                <Link to={`/system/account/${row.accountNumber}/detail`} className="btn btn-sm btn-primary ml-1">View Account</Link>
+                <button className={'btn btn-sm btn-primary'} onClick={() => handleCustomerEdit(row._id)}><FontAwesomeIcon icon={faPenAlt} /> Edit</button>
+                <button className={'btn btn-sm btn-danger ml-1'} onClick={() => deleteCustomer(row)}><FontAwesomeIcon icon={faTrash} /> Delete</button>
+                <Link to={`/system/account/${row.accountNumber}/detail`} className="btn btn-sm btn-primary ml-1"><FontAwesomeIcon icon={faInfo} /> Account</Link>
                 </>
             )
         }

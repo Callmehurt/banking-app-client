@@ -759,7 +759,7 @@ dt {
 }
 
 #topnav .topbar-main {
-  background: #30419b;
+  background: #09669f;
 }
 
 #topnav .topbar-main .logo {
@@ -1141,6 +1141,7 @@ body {
   list-style: none;
   margin: 0;
   padding: 0;
+  text-align: center;
 }
 
 #topnav .navigation-menu > li {
@@ -3185,7 +3186,6 @@ table.focus-on tbody tr.focused td {
 }
 
 .accountbg {
-  /*background: url("../images/restaurant.png");*/
   position: absolute;
   background-position: center center;
   height: 100%;

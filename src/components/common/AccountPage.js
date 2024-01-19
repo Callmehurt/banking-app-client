@@ -58,8 +58,11 @@ const AccountPage = ({customer, account, balance}) => {
     return (
         <>
             <StatementPrintComponent transactions={filteredTransactions} ref={componentRef}/>
-            <div className="col-lg-6">
+            <div className="col-lg-5">
                 <div className="card m-b-30">
+                    <div className="card-header" style={{ background: '#09669F' }}>
+                            <h6 className="text-white">Customer Information</h6>
+                        </div>
                     <div className="card-body">
                         <h6>Customer Detail</h6>
                         <hr/>
@@ -71,8 +74,11 @@ const AccountPage = ({customer, account, balance}) => {
                     </div>
                 </div>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-7">
                 <div className="card m-b-30">
+                    <div className="card-header" style={{ background: '#09669F' }}>
+                            <h6 className="text-white">FIlter Transactions</h6>
+                        </div>
                     <div className="card-body">
                         <form>
                             <div className="row">
@@ -125,16 +131,17 @@ const AccountPage = ({customer, account, balance}) => {
                             <button onClick={() => handleStatementPrint()} className={'btn btn-sm btn-primary ml-2'} type="button">
                             Print
                         </button>
-                            <button onClick={() => setFilteredTransactions(transactions)} className={'btn btn-sm btn-primary ml-2'} type="button">
+                            {/* <button onClick={() => setFilteredTransactions(transactions)} className={'btn btn-sm btn-primary ml-2'} type="button">
                             Remove Filter
-                        </button>
+                        </button> */}
                         </form>
                     </div>
                 </div>
                 <div className="card m-b-30">
+                    <div className="card-header" style={{ background: '#09669F' }}>
+                        <h6 className="text-white">Transactions</h6>
+                    </div>
                     <div className="card-body">
-                        <h6>Transactions</h6>
-                        <hr/>
                         <span><strong>Available Balance:</strong> £{balance.balance}</span>
                         <span className="float-right"><strong>Total Credit:</strong> £{parseFloat(balance.totalCredit).toFixed(2)}</span>
                         <span className="float-right mr-2"><strong>Total Debit:</strong> £{parseFloat(balance.totalDebit).toFixed(2)}</span>

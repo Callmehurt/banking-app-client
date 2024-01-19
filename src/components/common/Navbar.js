@@ -2,10 +2,10 @@ import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faDashboard, faUsers, faReceipt, faUser, faSterlingSign} from "@fortawesome/free-solid-svg-icons";
 
-const Navbar = ({userDetail}) => {
+const Navbar = ({userDetail, menu}) => {
 
     return (
-        <div id="navigation">
+        <div id="navigation" className={menu === 'open' ? 'active' : ''}>
           <ul className="navigation-menu">
               <li className="has-submenu">
                   <Link to="/system/dashboard"><FontAwesomeIcon icon={faDashboard} className={'mr-1'} /> Dashboard</Link>
@@ -19,10 +19,10 @@ const Navbar = ({userDetail}) => {
                     <li className="has-submenu">
                         <Link to="/system/account/detail"><FontAwesomeIcon icon={faSterlingSign} className={'mr-1'} /> Account Detail</Link>
                     </li>
-                    <li className="has-submenu">
+                    <li className={menu === 'open' ? `has-submenu ${menu}` : 'has-submenu'}>
                         <a href="#"><FontAwesomeIcon icon={faReceipt} className={'mr-1'} /> Transactions <i
                             className="mdi mdi-chevron-down mdi-drop"></i></a>
-                        <ul className="submenu megamenu">
+                        <ul className={menu === 'open' ? `submenu megamenu ${menu}` : 'submenu megamenu'}>
                             <li>
                                 <ul>
                                     <li><Link to={'/system/transaction/deposit'}>Deposit Amount</Link></li>

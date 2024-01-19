@@ -100,13 +100,13 @@ const Login = () => {
                                 <ul className="nav nav-pills nav-justified" role="tablist">
                                     <li className="nav-item waves-effect waves-light">
                                         <a className={loginType === 'User' ? 'nav-link active' : 'nav-link'} onClick={() => setLoginType('User')}>
-                                            <span className="d-none d-md-block">User</span><span className="d-block d-md-none">
+                                            <span className="d-none d-md-block">User Login</span><span className="d-block d-md-none">
                                         </span>
                                         </a>
                                     </li>
                                     <li className="nav-item waves-effect waves-light">
                                         <a className={loginType === 'Customer' ? 'nav-link active' : 'nav-link'} onClick={() => setLoginType('Customer')}>
-                                            <span className="d-none d-md-block">Customer</span><span className="d-block d-md-none">
+                                            <span className="d-none d-md-block">Customer Login</span><span className="d-block d-md-none">
                                         </span>
                                         </a>
                                     </li>
@@ -154,12 +154,6 @@ const Login = () => {
                                                 </button>
                                             )
                                     }
-                                </div>
-                            </div>
-                            <div className="form-group row m-t-30 m-b-0">
-                                <div className="col-sm-7">
-                                    <Link to={'/'} className="text-muted"><i
-                                        className="mdi mdi-lock m-r-5"></i> Forgot your password?</Link>
                                 </div>
                             </div>
                         </form>

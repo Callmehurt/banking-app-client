@@ -21,7 +21,7 @@ const CustomerAddModal = ({show, setShow}) => {
         address: '',
         phone: '',
         email: '',
-        password: 'nepal123'
+        password: 'london123'
     }
 
     const {values, errors, handleBlur, handleChange, handleSubmit, touched} = useFormik({

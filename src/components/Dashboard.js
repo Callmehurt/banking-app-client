@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import CustomerDashboard from "./CustomerDashboard";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import SingleCustomer from "./adminStaffCommon/SingleCustomer";
 
 const Dashboard = () => {
 
@@ -9,11 +10,14 @@ const Dashboard = () => {
     const axiosPrivate = useAxiosPrivate();
 
     const [totalCustomer, setTotalCustomer] = useState(0);
+    const [customers, setCustomers] = useState([]);
 
     useEffect(() => {
 
         const fetchCustomer = async () => {
-            const res = await axiosPrivate.get('/fetch/all/customers')
+            const res = await axiosPrivate.get('/fetch/all/customers');
+            const list = res?.data.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+            setCustomers(list);
             setTotalCustomer(res.data.length);
         }
 
@@ -54,6 +58,24 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
+            <div className="col-xl-4">
+                    <div className="card m-b-30">
+                    <div className="card-header" style={{ background: '#09669F' }}>
+                            <h6 className="text-white">Newly Registered Customers</h6>
+                        </div>
+                        <div className="card-body">
+                            <div className="friends-suggestions">
+                                {
+                                    customers.map((cus) => {
+                                        return <SingleCustomer name={cus.name} registrationDate={cus.createdAt} accountNumber={cus.accountNumber} />
+                                    })
+                                }
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
                 </>
             )

@@ -5,19 +5,30 @@ import {useSelector} from "react-redux";
 import logo from '../../images/logo.png'
 import avatar from '../../images/avatar.png'
 import Navbar from "./Navbar";
+import { useEffect, useState } from "react";
 
 
 const Header = () => {
 
     const logout = useLogout();
     const navigate = useNavigate();
-    const userDetail = useSelector((state) => state.authentication)
+    const userDetail = useSelector((state) => state.authentication);
+
+    const [mobileMenu, setMobileMenu] = useState('close');
 
      const signOut = async () => {
         const res = await logout();
         if(res){
             navigate('/user/login')
         }       
+    }
+
+    const handleMobileMenu = () => {
+        if(mobileMenu === 'close'){
+            setMobileMenu('open');
+        }else{
+            setMobileMenu('close');
+        }
     }
   return (
       <>
@@ -29,7 +40,7 @@ const Header = () => {
                           <div>
                               <Link to={`/system/dashboard`} className={'logo'}>
                                     <span className="logo-light" style={{fontFamily: 'Dancing Script', letterSpacing: '1px'}}>
-                                           <img src={logo} alt="logo" height='45' className="rounded-circle" /> The ABC Bank
+                                           <img src={logo} alt="logo" height='45' className="rounded-circle" style={{ background: 'white' }} /> The ABC Bank
                                     </span>
                               </Link>
                           </div>
@@ -55,17 +66,15 @@ const Header = () => {
                                           </div>
                                       </div>
                                   </li>
-
-                                  {/*<li className="menu-item dropdown notification-list list-inline-item">*/}
-                                  {/*    <a className="navbar-toggle nav-link">*/}
-                                  {/*        <div className="lines">*/}
-                                  {/*            <span></span>*/}
-                                  {/*            <span></span>*/}
-                                  {/*            <span></span>*/}
-                                  {/*        </div>*/}
-                                  {/*    </a>*/}
-                                  {/*</li>*/}
-
+                                  <li class="menu-item dropdown notification-list list-inline-item" onClick={() => handleMobileMenu()}>
+                                    <a class={`navbar-toggle nav-link ${mobileMenu}`}>
+                                        <div class="lines">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+                                    </a>
+                                </li>
                               </ul>
 
                           </div>
@@ -77,7 +86,7 @@ const Header = () => {
 
                   <div className="navbar-custom">
                       <div className="container-fluid">
-                        <Navbar userDetail={userDetail}/>
+                        <Navbar userDetail={userDetail} menu={mobileMenu}/>
                       </div>
                   </div>
               </header>
